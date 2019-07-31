@@ -10,7 +10,7 @@ builds:
       - CGO_ENABLED=0
 archives:
   - id: zip-archive
-    name_template: "{{ .ProjectName }"
+    name_template: "{{ .ProjectName }}"
     format: zip
   - id: binary-archive
     name_template: "{{ .ProjectName }}"
