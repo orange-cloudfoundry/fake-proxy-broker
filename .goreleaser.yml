@@ -1,0 +1,27 @@
+before:
+  hooks:
+    - go mod download
+builds:
+  - goos:
+      - linux
+    goarch:
+      - amd64
+    env:
+      - CGO_ENABLED=0
+archives:
+  - id: zip-archive
+    name_template: "{{ .ProjectName }"
+    format: zip
+  - id: binary-archive
+    name_template: "{{ .ProjectName }}"
+    format: binary
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ .Tag }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
