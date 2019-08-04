@@ -8,6 +8,9 @@
     "port": 3128,
     "protocol": "http",
     "random_subdomain": true,
-    "random_user": true
+    "random_user": true,
+    "documentation_url": "http://doc.broker.org",
+    "support_url": "http://support.broker.org",
+    "image_path": "./internet.png",
   }
 }

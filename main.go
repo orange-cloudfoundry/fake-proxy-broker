@@ -3,6 +3,7 @@ package main
 import (
 	"code.cloudfoundry.org/lager"
 	"context"
+	"encoding/base64"
 	"flag"
 	"fmt"
 	"github.com/cloudfoundry-community/gautocloud"
@@ -10,6 +11,7 @@ import (
 	"github.com/pivotal-cf/brokerapi"
 	"github.com/pivotal-cf/brokerapi/domain"
 	"github.com/satori/go.uuid"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"os"
@@ -33,13 +35,16 @@ type Credentials struct {
 }
 
 type ProxyConfig struct {
-	Name            string `cloud:"name"`
-	Description     string `cloud:"description"`
-	Host            string `cloud:"host"`
-	Port            int    `cloud:"port" cloud-default:"3128"`
-	Protocol        string `cloud:"protocol" cloud-default:"http"`
-	RandomSubdomain bool   `cloud:"random_subdomain"`
-	RandomUser      bool   `cloud:"random_user"`
+	Name             string `cloud:"name"`
+	Description      string `cloud:"description"`
+	Host             string `cloud:"host"`
+	Port             int    `cloud:"port" cloud-default:"3128"`
+	Protocol         string `cloud:"protocol" cloud-default:"http"`
+	RandomSubdomain  bool   `cloud:"random_subdomain"`
+	RandomUser       bool   `cloud:"random_user"`
+	SupportURL       string `cloud:"support_url"`
+	DocumentationURL string `cloud:"documentation_url"`
+	ImagePath        string `cloud:"image_path"`
 }
 
 func (c ProxyConfig) toCredentials() Credentials {
@@ -101,6 +106,20 @@ func (b *FakeProxyBroker) Services(context.Context) ([]domain.Service, error) {
 	rootUUid, _ := uuid.FromString(ROOT_UUID)
 	serviceUuid := uuid.NewV5(rootUUid, b.proxyConfig.Name+"-service")
 	planUuid := uuid.NewV5(rootUUid, b.proxyConfig.Name+"-plan")
+
+	metadata := &domain.ServiceMetadata{
+		DocumentationUrl: b.proxyConfig.DocumentationURL,
+		SupportUrl:       b.proxyConfig.SupportURL,
+	}
+
+	if b.proxyConfig.ImagePath != "" {
+		data, err := ioutil.ReadFile(b.proxyConfig.ImagePath)
+		if err == nil {
+			encoded := base64.StdEncoding.EncodeToString(data)
+			metadata.ImageUrl = fmt.Sprintf("data:image/png;base64,%s", encoded)
+		}
+	}
+
 	return []domain.Service{
 		{
 			ID:          serviceUuid.String(),
@@ -108,6 +127,7 @@ func (b *FakeProxyBroker) Services(context.Context) ([]domain.Service, error) {
 			Description: b.proxyConfig.Description,
 			Bindable:    true,
 			Tags:        []string{"proxy", "http-proxy", "https-proxy"},
+			Metadata:    metadata,
 			Plans: []domain.ServicePlan{
 				{
 					ID:          planUuid.String(),
