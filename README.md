@@ -22,17 +22,15 @@ Explanation of the config file given in [/service.json](/service.json):
 {
   "broker_username": "user",
   "broker_password": "password",
-  "proxy": [
-    {
-      "name": "myproxy",
-      "description": "description of my proxy",
-      "host": "my.proxy.host",
-      "port": 3128,
-      "protocol": "http",
-      "random_subdomain": true,
-      "random_user": true
-    }
-  ]
+  "proxy": {
+    "name": "myproxy",
+    "description": "description of my proxy",
+    "host": "my.proxy.host",
+    "port": 3128,
+    "protocol": "http",
+    "random_subdomain": true,
+    "random_user": true
+  }
 }
 ```
 
