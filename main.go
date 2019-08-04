@@ -115,7 +115,7 @@ func (b *FakeProxyBroker) Services(context.Context) ([]domain.Service, error) {
 	if b.proxyConfig.ImagePath != "" {
 		data, err := ioutil.ReadFile(b.proxyConfig.ImagePath)
 		if err == nil {
-			encoded := base64.StdEncoding.EncodeToString(data)
+			encoded := base64.RawStdEncoding.EncodeToString(data)
 			metadata.ImageUrl = fmt.Sprintf("data:image/png;base64,%s", encoded)
 		}
 	}
