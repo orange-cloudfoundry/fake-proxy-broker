@@ -62,7 +62,7 @@ func (c ProxyConfig) toCredentials() Credentials {
 	}
 
 	u := &url.URL{
-		Scheme: c.Protocol + ":",
+		Scheme: c.Protocol,
 		Host:   fmt.Sprintf("%s:%d", host, c.Port),
 		User:   user,
 	}
