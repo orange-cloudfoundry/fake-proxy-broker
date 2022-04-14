@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	code.cloudfoundry.org/lager v2.0.0+incompatible
-	github.com/cloudfoundry-community/gautocloud v1.1.8
+	github.com/cloudfoundry-community/gautocloud v1.1.9
 	github.com/goombaio/namegenerator v0.0.0-20181006234301-989e774b106e
 	github.com/pivotal-cf/brokerapi v6.4.2+incompatible
 	github.com/satori/go.uuid v1.2.0

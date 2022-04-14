@@ -4,8 +4,8 @@ code.cloudfoundry.org/lager
 # github.com/azer/snakecase v1.0.0
 ## explicit
 github.com/azer/snakecase
-# github.com/cloudfoundry-community/gautocloud v1.1.8
-## explicit; go 1.17
+# github.com/cloudfoundry-community/gautocloud v1.1.9
+## explicit; go 1.18
 github.com/cloudfoundry-community/gautocloud
 github.com/cloudfoundry-community/gautocloud/cloudenv
 github.com/cloudfoundry-community/gautocloud/connectors
