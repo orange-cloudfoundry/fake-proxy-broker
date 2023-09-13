@@ -11,6 +11,6 @@
     "random_user": true,
     "documentation_url": "http://doc.broker.org",
     "support_url": "http://support.broker.org",
-    "image_path": "./internet.png",
+    "image_path": "./internet.png"
   }
 }
