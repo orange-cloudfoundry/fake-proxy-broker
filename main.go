@@ -11,7 +11,6 @@ import (
 	"github.com/pivotal-cf/brokerapi"
 	"github.com/pivotal-cf/brokerapi/domain"
 	"github.com/satori/go.uuid"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 	"os"
@@ -113,7 +112,7 @@ func (b *FakeProxyBroker) Services(context.Context) ([]domain.Service, error) {
 	}
 
 	if b.proxyConfig.ImagePath != "" {
-		data, err := ioutil.ReadFile(b.proxyConfig.ImagePath)
+		data, err := os.ReadFile(b.proxyConfig.ImagePath)
 		if err == nil {
 			encoded := base64.RawStdEncoding.EncodeToString(data)
 			metadata.ImageUrl = fmt.Sprintf("data:image/png;base64,%s", encoded)
