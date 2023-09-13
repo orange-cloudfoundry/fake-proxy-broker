@@ -7,12 +7,12 @@ and optionally simulate fake user/password and subdomain.
 
 1. Get latest releases in [releases page](https://github.com/orange-cloudfoundry/fake-proxy-broker/releases) (only build is linux amd64)
 2. Unzip if you choose zipped version
-3. Create an user provided service to manage your configuration, 
-you can use the [file included in the repo](service.json) and run 
-`cf cups <my-proxy-broker>-config -p service.json`
-3. `cf push mybroker -c ./fake-proxy-broker`
-4. register your broker: `cf create-service-broker myproxybroker <broker username> <broker password> <broker url>`
-5. enable service: `cf enable-service-access <proxy name>`
+3. Create a user provided service to manage your configuration,
+   you can use the [file included in the repo](service.json) and run
+   `cf cups <my-proxy-broker>-config -p service.json`
+4. `cf push mybroker -c ./fake-proxy-broker`
+5. register your broker: `cf create-service-broker myproxybroker <broker username> <broker password> <broker url>`
+6. enable service: `cf enable-service-access <proxy name>`
 
 ## Config file
 
