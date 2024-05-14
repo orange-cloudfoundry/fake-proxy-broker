@@ -175,7 +175,7 @@ func main() {
 		panic(err)
 	}
 	if conf.Proxy.Name == "" || conf.Proxy.Host == "" {
-		panic(fmt.Errorf("You must have configured proxy name and proxy host at least."))
+		panic(fmt.Errorf("you must have configured proxy name and proxy host at least"))
 	}
 
 	serviceBroker := NewFakeProxyBroker(conf.Proxy)
@@ -192,5 +192,7 @@ func main() {
 	if os.Getenv("PORT") != "" {
 		port = os.Getenv("PORT")
 	}
-	http.ListenAndServe(":"+port, nil)
+	if err := http.ListenAndServe(":"+port, nil); err != nil {
+		panic("ListenAndServe: " + err.Error())
+	}
 }
