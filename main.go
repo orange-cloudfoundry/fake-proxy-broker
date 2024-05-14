@@ -3,14 +3,15 @@ package main
 import (
 	"code.cloudfoundry.org/lager"
 	"context"
+	"crypto/sha1"
 	"encoding/base64"
 	"flag"
 	"fmt"
 	"github.com/cloudfoundry-community/gautocloud"
 	"github.com/cloudfoundry-community/gautocloud/connectors/generic"
+	"github.com/google/uuid"
 	"github.com/pivotal-cf/brokerapi"
 	"github.com/pivotal-cf/brokerapi/domain"
-	"github.com/satori/go.uuid"
 	"net/http"
 	"net/url"
 	"os"
@@ -102,9 +103,9 @@ func NewFakeProxyBroker(proxyConfig ProxyConfig) *FakeProxyBroker {
 }
 
 func (b *FakeProxyBroker) Services(context.Context) ([]domain.Service, error) {
-	rootUUid, _ := uuid.FromString(ROOT_UUID)
-	serviceUuid := uuid.NewV5(rootUUid, b.proxyConfig.Name+"-service")
-	planUuid := uuid.NewV5(rootUUid, b.proxyConfig.Name+"-plan")
+	rootUUid, _ := uuid.Parse(ROOT_UUID)
+	serviceUuid := uuid.NewHash(sha1.New(), rootUUid, []byte(b.proxyConfig.Name+"-service"), 5)
+	planUuid := uuid.NewHash(sha1.New(), rootUUid, []byte(b.proxyConfig.Name+"-plan"), 5)
 
 	metadata := &domain.ServiceMetadata{
 		DocumentationUrl: b.proxyConfig.DocumentationURL,
@@ -175,7 +176,7 @@ func main() {
 		panic(err)
 	}
 	if conf.Proxy.Name == "" || conf.Proxy.Host == "" {
-		panic(fmt.Errorf("You must have configured proxy name and proxy host at least."))
+		panic(fmt.Errorf("you must have configured proxy name and proxy host at least"))
 	}
 
 	serviceBroker := NewFakeProxyBroker(conf.Proxy)
@@ -192,5 +193,7 @@ func main() {
 	if os.Getenv("PORT") != "" {
 		port = os.Getenv("PORT")
 	}
-	http.ListenAndServe(":"+port, nil)
+	if err := http.ListenAndServe(":"+port, nil); err != nil {
+		panic("ListenAndServe: " + err.Error())
+	}
 }
