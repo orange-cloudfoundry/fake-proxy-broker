@@ -3,14 +3,15 @@ package main
 import (
 	"code.cloudfoundry.org/lager"
 	"context"
+	"crypto/sha1"
 	"encoding/base64"
 	"flag"
 	"fmt"
 	"github.com/cloudfoundry-community/gautocloud"
 	"github.com/cloudfoundry-community/gautocloud/connectors/generic"
+	"github.com/google/uuid"
 	"github.com/pivotal-cf/brokerapi"
 	"github.com/pivotal-cf/brokerapi/domain"
-	"github.com/satori/go.uuid"
 	"net/http"
 	"net/url"
 	"os"
@@ -102,9 +103,9 @@ func NewFakeProxyBroker(proxyConfig ProxyConfig) *FakeProxyBroker {
 }
 
 func (b *FakeProxyBroker) Services(context.Context) ([]domain.Service, error) {
-	rootUUid, _ := uuid.FromString(ROOT_UUID)
-	serviceUuid := uuid.NewV5(rootUUid, b.proxyConfig.Name+"-service")
-	planUuid := uuid.NewV5(rootUUid, b.proxyConfig.Name+"-plan")
+	rootUUid, _ := uuid.Parse(ROOT_UUID)
+	serviceUuid := uuid.NewHash(sha1.New(), rootUUid, []byte(b.proxyConfig.Name+"-service"), 5)
+	planUuid := uuid.NewHash(sha1.New(), rootUUid, []byte(b.proxyConfig.Name+"-plan"), 5)
 
 	metadata := &domain.ServiceMetadata{
 		DocumentationUrl: b.proxyConfig.DocumentationURL,
