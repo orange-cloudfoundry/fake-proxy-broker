@@ -1,10 +1,10 @@
 module github.com/orange-cloudfoundry/fake-proxy-broker
 
-go 1.25
+go 1.25.2
 
 require (
 	code.cloudfoundry.org/lager v2.0.0+incompatible
-	github.com/cloudfoundry-community/gautocloud v1.8.0
+	github.com/cloudfoundry-community/gautocloud v1.7.0
 	github.com/google/uuid v1.6.0
 	github.com/goombaio/namegenerator v0.0.0-20181006234301-989e774b106e
 	github.com/pivotal-cf/brokerapi v6.4.2+incompatible
