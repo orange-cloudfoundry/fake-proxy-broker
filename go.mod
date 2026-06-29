@@ -1,10 +1,10 @@
 module github.com/orange-cloudfoundry/fake-proxy-broker
 
-go 1.25.5
+go 1.26
 
 require (
 	code.cloudfoundry.org/lager v2.0.0+incompatible
-	github.com/cloudfoundry-community/gautocloud v1.8.0
+	github.com/cloudfoundry-community/gautocloud v1.9.0
 	github.com/google/uuid v1.6.0
 	github.com/goombaio/namegenerator v0.0.0-20181006234301-989e774b106e
 	github.com/pivotal-cf/brokerapi v6.4.2+incompatible
@@ -14,7 +14,7 @@ require (
 	github.com/azer/snakecase v1.0.0 // indirect
 	github.com/cloudfoundry-community/go-cfenv v1.18.0 // indirect
 	github.com/drewolson/testflight v1.0.0 // indirect
-	github.com/fsnotify/fsnotify v1.9.0 // indirect
+	github.com/fsnotify/fsnotify v1.10.1 // indirect
 	github.com/go-viper/encoding/hcl v0.1.0 // indirect
 	github.com/go-viper/mapstructure/v2 v2.5.0 // indirect
 	github.com/golang/mock v1.6.0 // indirect
@@ -22,7 +22,7 @@ require (
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/pborman/uuid v1.2.1 // indirect
-	github.com/pelletier/go-toml/v2 v2.2.4 // indirect
+	github.com/pelletier/go-toml/v2 v2.4.2 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/sagikazarmark/locafero v0.12.0 // indirect
 	github.com/sirupsen/logrus v1.9.4 // indirect
@@ -32,7 +32,7 @@ require (
 	github.com/spf13/viper v1.21.0 // indirect
 	github.com/subosito/gotenv v1.6.0 // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
-	golang.org/x/sys v0.40.0 // indirect
-	golang.org/x/text v0.33.0 // indirect
+	golang.org/x/sys v0.46.0 // indirect
+	golang.org/x/text v0.38.0 // indirect
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 )
